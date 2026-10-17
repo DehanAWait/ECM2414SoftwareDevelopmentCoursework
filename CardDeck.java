@@ -5,7 +5,9 @@ import java.io.IOException;
 public class CardDeck {
     private ArrayList<Integer> deck;
     public static FileWriter deckFile;
-    public Integer deckNumber;
+    public static Integer cardDrawn;
+    public static Integer cardDiscarded;
+    public static Integer deckNumber;
     public String fileName = "deck" + deckNumber + ".txt";
     public CardDeck(ArrayList<Integer> deck, Integer deckNumber) throws IOException {
         this.deck = deck;
@@ -16,11 +18,21 @@ public class CardDeck {
 
     
     static synchronized void discardCard(Integer card, ArrayList<Integer> deck) throws IOException {
-        
-        for (int i=1; i<5; i++) {
-            deck.set(i, deck.get(i-1));
+        deck.add(card);
+        {
+            try {
+                StringBuilder builder = new StringBuilder();
+                for (Integer crd : deck) {
+                    builder.append(crd);
+                    builder.append(",");
+                }
+                deckFile.write(builder.toString());
+                deckFile.close();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        deck.set(0, card);
         {
             try {
                 StringBuilder builder = new StringBuilder();
@@ -59,5 +71,12 @@ public class CardDeck {
         
     }
     
+    static synchronized void getDiscardedCard(ArrayList<Integer> deck) throws IOException {
+        cardDiscarded = deck.get(3);
+    }
+    
+    static synchronized void getDrawnCard(ArrayList<Integer> deck) throws IOException {
+        cardDrawn = deck.get(0);
+    }
 
 }
