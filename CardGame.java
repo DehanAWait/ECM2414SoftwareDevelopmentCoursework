@@ -49,7 +49,12 @@ public class CardGame {
 
     ArrayList<ArrayList<Card>> playerHands = new ArrayList<>();
     for (int i=0; i <n; i++) {
+        playerHands.add(new ArrayList<>());
+    }
 
+    ArrayList<ArrayList<Card>> deckContents = new ArrayList<>();
+    for (int i =0; i < n; i++) {
+        deckContents.add(new ArrayList<>());
     }
 
 
