@@ -57,7 +57,13 @@ public class CardGame {
         deckContents.add(new ArrayList<>());
     }
 
-
+    int cardIndex = 0;
+    //Distribute 4 cards to each player in round-robin way
+    for (int round = 0; round < 4; round++) {
+        for (int p=0; p<n; p++){
+            playerHands.get(p).add(packCards.get(cardIndex++));
+        }
+    }
 
         //Creates a random pack
         private static void generateRandomPackFile(int n, String filename) {
