@@ -3,13 +3,14 @@ import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.Random;
+import java.util.ArrayList;
 
 public class CardGame {
     public static void main(String[] args){
 
         //To get input
         Scanner scanner = new Scanner(System.in);
-        int n=0;
+        int n = 0;
 
         //Check input is valid and get number of players
         while (true) {
@@ -28,7 +29,28 @@ public class CardGame {
         generateRandomPackFile(n,generatedFilename);
         System.out.println("Automatically generated pack file: " + generatedFilename);
 
+       //Prompt for pack location
+       List<Cards> packCards = null;
+       while (packCards == null) {
+        System.out.println("Please enter location of pack to load:");
+        String packFilename = scanner.nextLine().trim();
+        if (packFilename.isEmpty()) {
+            packFilename = generatedFilename;
+        }
+       }
 
+       packCards = loadAndValidatePack(packFilename, n);
+        if (packCards == null) {
+            System.out.println("Invalid pack file. Please try again.");
+        }
+
+
+    System.out.println("Pack loaded successfully with " + packCards.size() + " cards.");
+
+    ArrayList<ArrayList<Card>> playerHands = new ArrayList<>();
+    for (int i=0; i <n; i++) {
+
+    }
 
 
 
