@@ -45,47 +45,69 @@ public class CardGame {
         }
 
 
-    System.out.println("Pack loaded successfully with " + packCards.size() + " cards.");
+        System.out.println("Pack loaded successfully with " + packCards.size() + " cards.");
 
-    ArrayList<ArrayList<Card>> playerHands = new ArrayList<>();
-    for (int i=0; i <n; i++) {
-        playerHands.add(new ArrayList<>());
-    }
-
-    ArrayList<ArrayList<Card>> deckContents = new ArrayList<>();
-    for (int i =0; i < n; i++) {
-        deckContents.add(new ArrayList<>());
-    }
-
-    int cardIndex = 0;
-    //Distribute 4 cards to each player in round-robin way
-    for (int round = 0; round < 4; round++) {
-        for (int p=0; p<n; p++){
-            playerHands.get(p).add(packCards.get(cardIndex++));
+        ArrayList<ArrayList<Card>> playerHands = new ArrayList<>();
+        for (int i=0; i <n; i++) {
+            playerHands.add(new ArrayList<>());
         }
+
+        ArrayList<ArrayList<Card>> deckContents = new ArrayList<>();
+        for (int i =0; i < n; i++) {
+            deckContents.add(new ArrayList<>());
+        }
+
+        int cardIndex = 0;
+        //Distribute 4 cards to each player in round-robin way
+        for (int round = 0; round < 4; round++) {
+            for (int p=0; p<n; p++){
+                playerHands.get(p).add(packCards.get(cardIndex++));
+            }
+        }
+
+
+        //Distribute remaining card to decks
+        int deckIndex = 0;
+        while (cardIndex < packCards.size()) {
+            int targetDeck = deckIndex % n;
+            deckContents.get(targetDeck).add(packCards.get(cardIndex++));
+            deckIndex++;
+        }
+
+        //Initialise CardDeck and Player objects in ring topology
+
+
+        //Immediate win check at the start of the game
+
+        //Start player threads if no immediate win
+
+        //Wait for one player to win
+
+        //Write final deck output files once a player has won the game
+
     }
 
-        //Creates a random pack
-        private static void generateRandomPackFile(int n, String filename) {
-            int totalRows = 8 * n;
-            Random random = new Random();
+    //Creates a random pack
+    private static void generateRandomPackFile(int n, String filename) {
+        int totalRows = 8 * n;
+        Random random = new Random();
 
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-                for (int i = 0; i < totalRows; i++) {
-                    int randomValue = random.nextInt(1,13);
-                    writer.write(String.valueOf(randomValue));
-                    writer.newLine();
-                } 
-            } catch (IOException e) {
-                    System.out.println("An error occured.");
-                    e.printStackTrace();
-                }
-        }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            for (int i = 0; i < totalRows; i++) {
+                int randomValue = random.nextInt(1,13);
+                writer.write(String.valueOf(randomValue));
+                writer.newLine();
+            } 
+        } catch (IOException e) {
+                System.out.println("An error occured.");
+                e.printStackTrace();
+            }
+    }
+
+    //Validates that a pack is valid
+    private static void
+
+
 
     
-        
-
-
-
-    }
 }
