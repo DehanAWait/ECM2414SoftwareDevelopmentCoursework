@@ -33,19 +33,19 @@ public class CardGame {
         System.out.println("Automatically generated pack file: " + generatedFilename);
 
        //Prompt for pack location
-       List<Cards> packCards = null;
+       List<Card> packCards = null;
        while (packCards == null) {
-        System.out.println("Please enter location of pack to load:");
-        String packFilename = scanner.nextLine().trim();
-        if (packFilename.isEmpty()) {
-            packFilename = generatedFilename;
-        }
-       }
+            System.out.println("Please enter location of pack to load:");
+            String packFilename = scanner.nextLine().trim();
+            if (packFilename.isEmpty()) {
+                packFilename = generatedFilename;
+            }
 
-       packCards = validatePack(packFilename, n);
-        if (packCards == null) {
-            System.out.println("Invalid pack file. Please try again.");
-        }
+            packCards = validatePack(packFilename, n);
+            if (packCards == null) {
+                System.out.println("Invalid pack file. Please try again.");
+            }
+       }
 
 
         System.out.println("Pack loaded successfully with " + packCards.size() + " cards.");
@@ -81,6 +81,7 @@ public class CardGame {
         List<CardDeck> decks = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             decks.add(new CardDeck(deckContents.get(i), i +1));
+        }
 
         List<Player> players = new ArrayList<>();
         List<Thread> threads = new ArrayList<>();
@@ -95,8 +96,7 @@ public class CardGame {
                 threads.add(new Thread(player));
             }
         } catch (IOException e) {
-            e.printStackStrace();
-
+            e.printStackTrace();
         }
 
         //Immediate win check at the start of the game
@@ -111,7 +111,7 @@ public class CardGame {
 
         if (immediateWin) {
             for (CardDeck deck : decks) {
-               //??????
+               deck.OutputDeckFile()
             }
             scanner.close();
             return;
@@ -133,7 +133,7 @@ public class CardGame {
 
         //Write final deck output files once a player has won the game
         for (CardDeck deck :decks) {
-            deck.writeFinalContents();
+            deck.OutputDeckFile();
         }
 
         System.out.println("Game finished. Output files generated.");
@@ -167,7 +167,7 @@ public class CardGame {
             List<String> lines = Files.readAllLines(Paths.get(filename));
 
             //Validate that the row count matches
-            if (lines.size() != expectedRows) {
+            if (lines.size() != eRows) {
                 return null;
             }
 
