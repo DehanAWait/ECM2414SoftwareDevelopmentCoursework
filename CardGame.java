@@ -78,8 +78,26 @@ public class CardGame {
         }
 
         //Initialise CardDeck and Player objects in ring topology
+        List<CardDeck> decks = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            decks.add(new CardDeck(deckContents.get(i), i +1));
 
+        List<Player> players = new ArrayList<>();
+        List<Thread> threads = new ArrayList<>();
 
+        try {
+            for (int i = 0; i <n; i++) {
+                CardDeck leftDeck = decks.get(i);
+                CardDeck rightDeck = decks.get((i + 1) % n);
+
+                Player player = new Player(i +1, playerHands.get(i), leftDeck, rightDeck);
+                players.add(player);
+                threads.add(new Thread(player));
+            }
+        } catch (IOException e) {
+            e.printStackStrace();
+
+        }
 
         //Immediate win check at the start of the game
         boolean immediateWin = false;
