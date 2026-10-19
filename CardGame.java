@@ -4,6 +4,9 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.List;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class CardGame {
     public static void main(String[] args){
@@ -39,7 +42,7 @@ public class CardGame {
         }
        }
 
-       packCards = loadAndValidatePack(packFilename, n);
+       packCards = validatePack(packFilename, n);
         if (packCards == null) {
             System.out.println("Invalid pack file. Please try again.");
         }
@@ -75,7 +78,7 @@ public class CardGame {
         }
 
         //Initialise CardDeck and Player objects in ring topology
-        
+
 
 
         //Immediate win check at the start of the game
@@ -106,6 +109,8 @@ public class CardGame {
             for (Thread t: threads) {
                 t.join();
             }
+        } catch(Exception e) {
+            System.out.println("Win error");
         }
 
         //Write final deck output files once a player has won the game
@@ -135,8 +140,33 @@ public class CardGame {
     }
 
     //Validates that a pack is valid
-    private static List<Card> loadValidatePack(String filename, int n) {
+    private static List<Card> validatePack(String filename, int n) {
+        int eRows = 8 * n;
 
+        try {
+
+            //Read all the lines from the file
+            List<String> lines = Files.readAllLines(Paths.get(filename));
+
+            //Validate that the row count matches
+            if (lines.size() != expectedRows) {
+                return null;
+            }
+
+            List<Card> cards = new ArrayList<>();
+            for (String line: lines) {
+                int value = Integer.parseInt(line.trim());
+
+                if (value < 0) {
+                    return null;
+                }
+                cards.add(new Card(value));
+            }
+
+            return cards;
+        } catch (IOException | NumberFormatException e) {
+            return null;
+        }
     }
 
 

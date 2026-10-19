@@ -21,7 +21,6 @@ public class Card {
         return String.valueOf(value);
     }
 
-    /*
     //Compares two cards values
     @Override
     public boolean equals(Object obj) {
@@ -31,8 +30,7 @@ public class Card {
         }
         Card card = (Card) obj;
         return value == card.value;
-    } 
-    */
+    }
 
     //Ensures Card objects behave correctly
     @Override
