@@ -54,6 +54,7 @@ public class Player {
                                 playerFile.write("player 1 discards a" + cardDiscarded.toString() + "to deck" + playerNumber.toString() + "\n");
                                 //Saves the individual move to the player file.
                                 playerFile.close();
+                                break;
                             }
                         }
                     }
