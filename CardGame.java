@@ -78,6 +78,22 @@ public class CardGame {
 
 
         //Immediate win check at the start of the game
+        boolean immediateWin = false;
+        for (int i=0; i <n;i++) {
+            if (players.get(i).hasWon()) {
+            System.out.println("player " + (i +1) + " wins");
+            immediateWin = true;
+            break;
+            }
+        }
+
+        if (immediateWin) {
+            for (CardDeck deck : decks) {
+               
+            }
+            scanner.close();
+            return;
+        }
 
         //Start player threads if no immediate win
 
@@ -105,7 +121,7 @@ public class CardGame {
     }
 
     //Validates that a pack is valid
-    private static void
+    private static 
 
 
 
