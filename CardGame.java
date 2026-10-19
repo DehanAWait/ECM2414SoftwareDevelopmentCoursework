@@ -75,6 +75,7 @@ public class CardGame {
         }
 
         //Initialise CardDeck and Player objects in ring topology
+        
 
 
         //Immediate win check at the start of the game
@@ -89,18 +90,31 @@ public class CardGame {
 
         if (immediateWin) {
             for (CardDeck deck : decks) {
-               
+               //??????
             }
             scanner.close();
             return;
         }
 
         //Start player threads if no immediate win
+        for (Thread t : threads) {
+            t.start();
+        }
 
         //Wait for one player to win
+        try {
+            for (Thread t: threads) {
+                t.join();
+            }
+        }
 
         //Write final deck output files once a player has won the game
+        for (CardDeck deck :decks) {
+            deck.writeFinalContents();
+        }
 
+        System.out.println("Game finished. Output files generated.");
+        scanner.close();
     }
 
     //Creates a random pack
@@ -121,7 +135,9 @@ public class CardGame {
     }
 
     //Validates that a pack is valid
-    private static 
+    private static List<Card> loadValidatePack(String filename, int n) {
+
+    }
 
 
 
