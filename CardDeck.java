@@ -1,8 +1,12 @@
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class CardDeck {
+    @SuppressWarnings("unused")
     private ArrayList<Integer> deck;
     public static FileWriter deckFile;
     public static Integer cardDrawn;
@@ -62,6 +66,19 @@ public class CardDeck {
             }
         }
         
+    }
+
+    static void OutputDeckFile(FileWriter deckFile) {
+        File newFile = new File(deckFile.toString());
+        try (Scanner myReader = new Scanner(newFile)) {
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                System.out.println(data);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
     
     static synchronized void getDiscardedCard(ArrayList<Integer> deck) throws IOException {
