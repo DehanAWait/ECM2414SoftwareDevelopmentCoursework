@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CardDeck {
-    @SuppressWarnings("unused")
     private ArrayList<Card> deck;
     public FileWriter deckFile;
     public Card cardDrawn;

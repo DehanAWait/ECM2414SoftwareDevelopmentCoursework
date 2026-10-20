@@ -1,7 +1,7 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class Player implements Runnable {
     
@@ -46,40 +46,21 @@ public class Player implements Runnable {
         return true;
     }
 
-
-    public Thread t1 = new Thread(new Runnable() {
-        //Thread made for drawing cards from the deck to their left, saving the move to their player file.
+    public Thread t1 = new Thread (new Runnable() {
+        //Thread made for discarding cards and saving the move to the player file
         public void run() {
-            while (!hasWon() && !Thread.currentThread().isInterrupted()) {
+            while(!hasWon() && !Thread.currentThread().isInterrupted()) {
                 try {
                     cardDrawn = leftDeck.drawCard();
                     if (cardDrawn != null) {
                         synchronized (hand) {
                             hand.add(cardDrawn);
                         }
-
                         playerFile = new FileWriter(fileName, true);
-                        playerFile.write("player "+ playerNumber + " draws a " +cardDrawn.getValue() + " from deck " + leftDeck.deckNumber + "\n");
-                        //Saves move to player file detailing which card was drawn from which deck.
+                        playerFile.write("player "+ playerNumber + "draws a " +cardDrawn.getValue() + "from deck " + leftDeck.deckNumber + "\n");
+                        //saves the move to the player file detailing which card was drawn from which deck.
                         playerFile.close();
-
-                        if (hasWon()) {
-                            System.out.println("player " + playerNumber + " wins");
-                        }
                     }
-                } catch (IOException e) {
-                    System.out.println("An error has occurred.");
-                    e.printStackTrace();
-                }
-            }
-        }
-    });
-
-    public Thread t2 = new Thread (new Runnable() {
-        //Thread made for discarding cards and saving the move to the player file
-        public void run() {
-            while(!hasWon() && !Thread.currentThread().isInterrupted()) {
-                try {
                     synchronized (hand) {
                         if (hasWon()) break;
                         for (int i = 0; i <hand.size(); i++) {
@@ -88,7 +69,7 @@ public class Player implements Runnable {
                                 rightDeck.discardCard(cardDiscarded);
 
                                 playerFile = new FileWriter(fileName, true);
-                                playerFile.write("player " + playerNumber + " discards a " + cardDiscarded.getValue() + " to deck " + rightDeck.deckNumber + "\n");
+                                playerFile.write("player " + playerNumber + "discards a " + cardDiscarded.getValue() + " to deck " + rightDeck.deckNumber + "\n");
 
                                 StringBuilder handStr = new StringBuilder("player " + playerNumber + " current hand is");
                                 for (Card c :hand) {
@@ -112,7 +93,6 @@ public class Player implements Runnable {
     
     public void startThreads() {
         t1.start();
-        t2.start();
         //Starts the threads for drawing and discarding cards.
     }
 
@@ -121,7 +101,6 @@ public class Player implements Runnable {
         startThreads();
         try {
             t1.join();
-            t2.join();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
