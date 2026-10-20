@@ -62,6 +62,10 @@ public class Player implements Runnable {
                         playerFile.write("player "+ playerNumber + " draws a " +cardDrawn.getValue() + " from deck " + leftDeck.deckNumber + "\n");
                         //Saves move to player file detailing which card was drawn from which deck.
                         playerFile.close();
+
+                        if (hasWon()) {
+                            System.out.println("player " + playerNumber + " wins");
+                        }
                     }
                 } catch (IOException e) {
                     System.out.println("An error has occurred.");
