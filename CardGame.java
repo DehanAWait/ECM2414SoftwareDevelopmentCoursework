@@ -1,12 +1,12 @@
-import java.util.Scanner;
-import java.io.FileWriter;
 import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Random;
-import java.util.ArrayList;
-import java.util.List;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 public class CardGame {
     public static void main(String[] args){
@@ -79,8 +79,12 @@ public class CardGame {
 
         //Initialise CardDeck and Player objects in ring topology
         List<CardDeck> decks = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            decks.add(new CardDeck(deckContents.get(i), i +1));
+        try {
+            for (int i = 0; i < n; i++) {
+                decks.add(new CardDeck(deckContents.get(i), i +1));
+            } 
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         List<Player> players = new ArrayList<>();
