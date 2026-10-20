@@ -111,7 +111,7 @@ public class CardGame {
 
         if (immediateWin) {
             for (CardDeck deck : decks) {
-               deck.OutputDeckFile()
+               deck.OutputDeckFile();
             }
             scanner.close();
             return;
