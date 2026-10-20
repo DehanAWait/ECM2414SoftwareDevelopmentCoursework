@@ -59,7 +59,7 @@ public class Player implements Runnable {
                         }
 
                         playerFile = new FileWriter(fileName, true);
-                        playerFile.write("player "+ playerNumber + "draws a " +cardDrawn.getValue() + "from deck" + leftDeck.deckNumber + "\n");
+                        playerFile.write("player "+ playerNumber + " draws a " +cardDrawn.getValue() + " from deck " + leftDeck.deckNumber + "\n");
                         //Saves move to player file detailing which card was drawn from which deck.
                         playerFile.close();
                     }
@@ -84,7 +84,7 @@ public class Player implements Runnable {
                                 rightDeck.discardCard(cardDiscarded);
 
                                 playerFile = new FileWriter(fileName, true);
-                                playerFile.write("player " + playerNumber + "discards a " + cardDiscarded.getValue() + "to deck " + rightDeck.deckNumber + "\n");
+                                playerFile.write("player " + playerNumber + " discards a " + cardDiscarded.getValue() + " to deck " + rightDeck.deckNumber + "\n");
 
                                 StringBuilder handStr = new StringBuilder("player " + playerNumber + " current hand is");
                                 for (Card c :hand) {
