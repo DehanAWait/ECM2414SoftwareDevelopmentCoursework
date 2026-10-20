@@ -54,6 +54,7 @@ public class Player implements Runnable {
                     cardDrawn = leftDeck.drawCard();
                     if (cardDrawn != null) {
                         synchronized (hand) {
+                            if (hasWon()) break;
                             hand.add(cardDrawn);
                         }
                         playerFile = new FileWriter(fileName, true);
